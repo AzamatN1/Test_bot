@@ -1,0 +1,25 @@
+# Secrets / env
+config.py
+buyurtmalar.json
+.env
+.env.*
+!.env.example
+
+# Telethon userbot sessions
+*.session
+*.session-journal
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local DB / media
+*.sqlite
+*.sqlite3
+*.db
+.config
+.config/
+
