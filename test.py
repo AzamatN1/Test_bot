@@ -76,7 +76,7 @@ def start(message):
     bot.delete_state(message.from_user.id, message.chat.id)
     bot.send_message(
         message.chat.id,
-        "Salom! 🧠 Mini viktorinaga xush kelibsiz.",
+        "Chotam nimagapla yordam kere bolsi /help ni bos yoki yoz.",
         reply_markup=asosiy_menyu(),
     )
 
@@ -85,7 +85,7 @@ def start(message):
 def yordam(message):
     bot.send_message(
         message.chat.id,
-        "🎮 Boshlash — 3 ta savol. Javob tugmasini bosing.\n"
+        "🎮 Boshlash — Ukam sanga 3ta savol beraman topomaseng kotsan ).\n"
         "/cancel — to'xtatish",
     )
 
@@ -99,7 +99,7 @@ def cancel(message):
 def boshlash(message):
     bot.delete_state(message.from_user.id, message.chat.id)
     bot.set_state(message.from_user.id, Tests.ism, message.chat.id)
-    bot.send_message(message.chat.id, "Ismingiz?", reply_markup=types.ReplyKeyboardRemove())
+    bot.send_message(message.chat.id, "Ismin nima ukam?", reply_markup=types.ReplyKeyboardRemove())
 
 
 @bot.message_handler(state=Tests.ism, content_types=["text"])
@@ -121,14 +121,14 @@ def javob_olish(message):
         javob = message.text.strip()
 
         if javob not in savol["variantlar"]:
-            bot.send_message(message.chat.id, "Javobni tugmalardan tanlang.")
+            bot.send_message(message.chat.id, "Nima yozmoqchi boldin tanla diyilgan.")
             return
 
         if javob == savol["javob"]:
             data["ball"] += 1
-            xabar = "✅ To'g'ri!"
+            xabar = "✅ To'g'ri malades ukam "
         else:
-            xabar = f"❌ Xato. To'g'ri javob: {savol['javob']}"
+            xabar = f"❌ Chummon. To'g'ri javob shu boladi ukam: {savol['javob']}"
 
         data["savol_raqami"] += 1
         ism, ball = data["ism"], data["ball"]
@@ -143,7 +143,7 @@ def javob_olish(message):
         natija_saqlash(message.from_user.id, ism, ball)
     except (OSError, ValueError, UnicodeError):
         saqlandi = False
-        telebot.logger.exception("Natijani faylga saqlashda xato")
+        telebot.logger.exception("Xato chiqardi file ga yuklanmadi ")
 
     bot.delete_state(message.from_user.id, message.chat.id)
     bot.send_message(
@@ -152,13 +152,13 @@ def javob_olish(message):
         reply_markup=asosiy_menyu(),
     )
     if not saqlandi:
-        bot.send_message(message.chat.id, "Natijani faylga saqlab bo'lmadi.")
+        bot.send_message(message.chat.id, "PZDET boldi sandan.")
 
 
 @bot.message_handler(func=lambda m: True, content_types=["text"])
 def boshqa_xabar(message):
     bot.send_message(
-        message.chat.id, "Boshlash uchun 🎮 Boshlash tugmasini bosing.",
+        message.chat.id, "Nima yozmoqchi boldin bitta tugmani bos blee.",
         reply_markup=asosiy_menyu(),
     )
 
